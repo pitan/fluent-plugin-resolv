@@ -43,7 +43,7 @@ Configuration
 
 - hostname_key
 
-  resolved hostname key. default is `host`.
+  resolved hostname key. default value is same as key_name.
 
 inside
 ------

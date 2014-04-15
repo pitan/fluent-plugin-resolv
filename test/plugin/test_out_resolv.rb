@@ -82,5 +82,33 @@ class ResolvOutputTest < Test::Unit::TestCase
     assert_equal 'good.tag1',          d.emits[0][0]
   end
 
+  CONFIG5 = %[
+    hostname_key any_hostname_key
+  ]
+  def test_hostname_key
+    time = Time.now.to_i
+    d = create_driver(CONFIG5)
+    d.run do
+      d.emit({'host' => '124.39.181.36', 'hostname_key' => 'any_hostname_key'})
+    end
+    assert_equal 1,                    d.emits.length
+    assert_equal 'www.plathome.co.jp', d.emits[0][2]['any_hostname_key']
+  end
+
+
+  CONFIG6 = %[
+    key_name any_key_name
+    hostname_key any_hostname_key
+  ]
+  def test_key_name_with_hostname_key
+    time = Time.now.to_i
+    d = create_driver(CONFIG6)
+    d.run do
+      d.emit({'any_key_name' => '124.39.181.36', 'hostname_key' => 'any_hostname_key'})
+    end
+    assert_equal 1,                    d.emits.length
+    assert_equal 'www.plathome.co.jp', d.emits[0][2]['any_hostname_key']
+  end
+
 end
 
