@@ -89,7 +89,7 @@ class ResolvOutputTest < Test::Unit::TestCase
     time = Time.now.to_i
     d = create_driver(CONFIG5)
     d.run do
-      d.emit({'host' => '124.39.181.36', 'hostname_key' => 'any_hostname_key'})
+      d.emit({'host' => '124.39.181.36'})
     end
     assert_equal 1,                    d.emits.length
     assert_equal 'www.plathome.co.jp', d.emits[0][2]['any_hostname_key']
@@ -104,7 +104,7 @@ class ResolvOutputTest < Test::Unit::TestCase
     time = Time.now.to_i
     d = create_driver(CONFIG6)
     d.run do
-      d.emit({'any_key_name' => '124.39.181.36', 'hostname_key' => 'any_hostname_key'})
+      d.emit({'any_key_name' => '124.39.181.36'})
     end
     assert_equal 1,                    d.emits.length
     assert_equal 'www.plathome.co.jp', d.emits[0][2]['any_hostname_key']
