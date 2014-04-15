@@ -6,6 +6,7 @@ class Fluent::ResolvOutput < Fluent::Output
   config_param :key_name,      :string, :default => 'host'
   config_param :remove_prefix, :string, :default => nil
   config_param :add_prefix,    :string, :default => nil
+  config_param :hostname_key,  :string, :default => 'host'
 
   def configure(conf)
     super
@@ -16,7 +17,7 @@ class Fluent::ResolvOutput < Fluent::Output
     tag = tag.sub(@remove_prefix, '') if @remove_prefix
     tag = (@add_prefix + '.' + tag) if @add_prefix
     es.each do |time,record|
-      record[@key_name] = Resolv.getname(record[@key_name]) rescue record[@key_name].empty? ? 'n/a' : record[@key_name]
+      record[@hostname_key] = Resolv.getname(record[@key_name]) rescue record[@key_name].empty? ? 'n/a' : record[@key_name]
       Fluent::Engine.emit(tag, time, record)
     end
     chain.next
