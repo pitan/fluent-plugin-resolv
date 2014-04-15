@@ -41,6 +41,9 @@ Configuration
 
   add_prefix: prepend the string to a tag.
 
+- hostname_key
+
+  resolved hostname key. default is `host`.
 
 inside
 ------
